@@ -16,6 +16,7 @@ library(gender)
 library(broom)
 library(lubridate)
 
+
 # Functions----------------------------------------------
 
 #i want to add this to a package!
@@ -43,11 +44,12 @@ getFirstName <- function(full.name) {
   return(first.name)
 }
 
-remove_paranthesis <- function(string) {
+removeParantheticals <- function(string) {
   string <- str_replace_all(string,regex(" *\\(.*?\\) *"), "")
   return(string)
 }
-#REDO
+
+
 getRace <- function(last.name) {
   
   last.name <- tibble(last.name)
@@ -79,20 +81,25 @@ getGender <- function(first.name) {
   first.name <- tibble(first.name)
   names(first.name) <- "first.name"
   
-            
+  
   gen.df <-   distinct(first.name) %>%
-              .$first.name %>%
-              gender(.,years=c(1960,1998), method="ssa") %>%
-              select(-gender,-year_max,-year_min) %>%
-              gather(gender, pct.gender, proportion_female:proportion_male) %>%
-              filter(pct.gender >=.65) %>%
-              mutate(gender = gsub("proportion_", "", gender)) %>%
-              select(-pct.gender) %>%
-              rename(first.name=name)
-            
+    .$first.name %>%
+    gender(.,years=c(1960,1998), method="ssa") %>%
+    select(-gender,-year_max,-year_min) %>%
+    gather(gender, pct.gender, proportion_female:proportion_male) %>%
+    filter(pct.gender >=.65) %>%
+    mutate(gender = gsub("proportion_", "", gender)) %>%
+    select(-pct.gender) %>%
+    rename(first.name=name)
+  
   out.df <- first.name %>% 
-            left_join(.,gen.df) %>% 
-            mutate(gender = stri_trans_totitle(ifelse(is.na(gender),"na_gender",gender)))
+    left_join(.,gen.df) %>% 
+    mutate(gender = stri_trans_totitle(ifelse(is.na(gender),"na_gender",gender)))
   
   return(out.df$gender)
 }
+
+
+
+
+
