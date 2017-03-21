@@ -20,7 +20,7 @@ library(lubridate)
 
 #i want to add this to a package!
 
-get_last_name <- function(full.name) {
+getLastName <- function(full.name) {
   name.list <- str_split(full.name, " ")
   name.list.length <-lapply(name.list, length) 
   last.name <-unlist(lapply(1:length(name.list), 
@@ -30,7 +30,7 @@ get_last_name <- function(full.name) {
   return(last.name)
 }
 
-get_first_name <- function(full.name) {
+getFirstName <- function(full.name) {
   name.list <- str_split(full.name, " ")
   name.list.length <-lapply(name.list, length) 
   first.name <- unlist(lapply(name.list, 
@@ -48,7 +48,7 @@ remove_paranthesis <- function(string) {
   return(string)
 }
 #REDO
-get_race <- function(last.name) {
+getRace <- function(last.name) {
   
   #check out wru package get census api
   #separate these out by race and gender, so that they can be in a mutate on a single variable
@@ -78,7 +78,7 @@ get_race <- function(last.name) {
   return(out.df$race)
 }
 
-get_gender <- function(first.name) {
+getGender <- function(first.name) {
   #separate these out by race and gender, so that they can be in a mutate on a single variable
   #and make sure you can name something special (paste with string= "manager" eg.)
   #maybe redo this so its more versatile for manager and referree
