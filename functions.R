@@ -50,14 +50,10 @@ remove_paranthesis <- function(string) {
 #REDO
 getRace <- function(last.name) {
   
-  #check out wru package get census api
-  #separate these out by race and gender, so that they can be in a mutate on a single variable
-  #and make sure you can name something special (paste with string= "manager" eg.)
-  #maybe redo this so its more versatile for manager and referree
-  #stopifnot(df %has_name% "last.name")
   last.name <- tibble(last.name)
   names(last.name) <- "last.name"
   
+  #not super user friendly as it currently stands, 
   race.df <-  read.csv("~/Desktop/Katherine_training/functions_data_etc/census_names.csv",
                        stringsAsFactors = FALSE)
   race.df <-  race.df %>% 
@@ -79,10 +75,7 @@ getRace <- function(last.name) {
 }
 
 getGender <- function(first.name) {
-  #separate these out by race and gender, so that they can be in a mutate on a single variable
-  #and make sure you can name something special (paste with string= "manager" eg.)
-  #maybe redo this so its more versatile for manager and referree
-  #stopifnot(df %has_name% "first.name")
+  
   first.name <- tibble(first.name)
   names(first.name) <- "first.name"
   
